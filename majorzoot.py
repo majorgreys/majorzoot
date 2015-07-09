@@ -34,7 +34,7 @@ def get_items(library):
         all_items = []
         for start in range(1, num_items, limit):
             if start + limit > num_items:
-                limit = num_items - start
+                limit = num_items - start + 1
             items = zot.items(start=start, limit=limit)
             all_items.extend(items)
         store[str(version)] = all_items
