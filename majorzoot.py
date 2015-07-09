@@ -53,7 +53,21 @@ def cli():
 def listauthors(library):
     click.echo('Listing authors for %s' % library)
     items = get_items(library)
-    click.echo(len(items))
-    #click.echo(set([c['creatorType'] for c in creators]))
+    creators = []
+    for item in items:
+        if item['data'].has_key('creators'): # not all items seem to have creators
+            creators.extend(item['data']['creators'])
+    author_names = {}
+    for creator in creators:
+        if creator.has_key('name'):
+            name = creator['name']
+        else:
+            name = '%s, %s' % (creator['lastName'], creator['firstName'])
+        if author_names.has_key(name):
+            author_names[name] += 1
+        else:
+            author_names[name] = 1
+    click.echo_via_pager('\n'.join(sorted(author_names.keys(), key=unicode.lower)))
+    click.echo('Total number of authors: %s' % len(author_names.keys()))
 
 cli.add_command(listauthors)
