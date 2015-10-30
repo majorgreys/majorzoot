@@ -8,10 +8,10 @@ setup(name='majorzoot',
       py_modules=['repo'],
       include_package_data=True,
       install_requires=[
-        'click',
-        'pyzotero'],
+          'click',
+          'pyzotero'],
       entry_points='''
         [console_scripts]
         majorzoot=majorzoot:cli
       ''',
-)
+      )
